@@ -1,0 +1,44 @@
+[general]
+ui = ttyui
+accounts = CameronBothner
+pythonfile = ~/.mutt/offlineimap.py
+fsync = False
+
+[Account CameronBothner]
+localrepository = CameronBothner-Local
+remoterepository = CameronBothner-Remote
+status_backend = sqlite
+postsynchook = notmuch new
+realdelete = False
+
+[Repository CameronBothner-Local]
+type = Maildir
+localfolders = ~/.mail/utopian.thirteen_gmail.com
+nametrans = lambda folder: {'drafts':  '[Gmail]/Drafts',
+                            'sent':    '[Gmail]/Sent Mail',
+                            'flagged': '[Gmail]/Starred',
+                            'trash':   '[Gmail]/Trash',
+                            'archive': '[Gmail]/All Mail',
+                            'exec+bod':'WCBN/Boards'
+                            }.get(folder, folder)
+
+[Repository CameronBothner-Remote]
+maxconnections = 1
+type = Gmail
+remoteuser = utopian.thirteen@gmail.com
+remotepasseval = get_keychain_pass(account="utopian.thirteen@gmail.com", server = "imap.gmail.com")
+nametrans = lambda folder: {'[Gmail]/Drafts':    'drafts',
+                            '[Gmail]/Sent Mail': 'sent',
+                            '[Gmail]/Starred':   'flagged',
+                            '[Gmail]/Trash':     'trash',
+                            '[Gmail]/All Mail':  'archive',
+                            'WCBN/Boards':       'exec+bod'
+                            }.get(folder, folder)
+folderfilter = lambda folder: folder  in ['[Gmail]/All Mail',
+                                          'INBOX',
+                                          'WCBN',
+                                          'WCBN/Boards',
+                                          '[Gmail]/Sent Mail',
+                                          '[Gmail]/Drafts',
+                                          'Friends',
+                                         ]
