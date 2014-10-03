@@ -32,3 +32,8 @@ alias x='exit'
 alias c='clear'
 alias mutt='cd ~/Desktop && mutt'
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+# Directory aliases are not common across machines, so source the local file
+if [[ -s "${ZDOTDIR:~$HOME}/.zshdirs" ]]; then
+  source "${ZDOTDIR:~$HOME}/.zshdirs"
+fi
