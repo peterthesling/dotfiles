@@ -25,7 +25,7 @@ Plugin 'bling/vim-airline'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
 "Bundle 'ervandew/supertab'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 "Plugin 'SirVer/ultisnips'
 "Plugin 'honza/vim-snippets'
   " make YCM compatible with UltiSnips (using supertab)
