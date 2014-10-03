@@ -130,7 +130,7 @@ set list
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable
-colorscheme distinguished
+colorscheme jellybeans
 if has("gui_running")
   colorscheme tomorrow
   let g:airline_theme = 'tomorrow'
