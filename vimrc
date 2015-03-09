@@ -12,7 +12,7 @@ Plugin 'altercation/vim-colors-solarized'
 set bg=dark
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-unimpaired'
-"Plugin 'tpope/vim-endwise'
+" Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-surround'
 Plugin 'kien/ctrlp.vim'
 Plugin 'bling/vim-airline'
@@ -24,19 +24,17 @@ Plugin 'bling/vim-airline'
   let g:airline_enable_branch     = 1
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
-"Bundle 'ervandew/supertab'
-"Plugin 'Valloric/YouCompleteMe'
-"Plugin 'SirVer/ultisnips'
-"Plugin 'honza/vim-snippets'
+" Bundle 'ervandew/supertab'
+" Plugin 'Valloric/YouCompleteMe'
+" Plugin 'SirVer/ultisnips'
+" Plugin 'honza/vim-snippets'
   " make YCM compatible with UltiSnips (using supertab)
-  "let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-  "let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-  "let g:SuperTabDefaultCompletionType = '<C-n>'
-
-  "" better key bindings for UltiSnipsExpandTrigger
-  "let g:UltiSnipsExpandTrigger = "<tab>"
-  "let g:UltiSnipsJumpForwardTrigger = "<tab>"
-  "let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+  " let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+  " let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+  " let g:SuperTabDefaultCompletionType = '<C-n>'
+  " let g:UltiSnipsExpandTrigger = "<tab>"
+  " let g:UltiSnipsJumpForwardTrigger = "<tab>"
+  " let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'Raimondi/delimitMate'
   let delimitMate_expand_cr = 1
@@ -54,8 +52,10 @@ au FileType mail colorscheme solarized
 Plugin 'jnwhiteh/vim-golang'
 " LaTeX
   let g:syntastic_latex_chktex_args = "-l ~/.chktexrc"
-  nnoremap <leader>ll :!xelatex %<cr>
-  nnoremap <leader>lb :!xelatex %:r; bibtex %:r; xelatex %:r; xelatex %:r<cr>
+  au FileType tex nnoremap <leader>ll :!xelatex %<cr>
+  au FileType tex nnoremap <leader>lb :!xelatex %:r; biber %:r; xelatex %:r;<cr>
+  au FileType tex nnoremap <leader>lv :!open %:r.pdf<cr>
+
 
 call vundle#end()
 filetype plugin indent on
@@ -154,9 +154,8 @@ set smarttab
 set shiftwidth=2
 set tabstop=2
 
-" Linebreak on 500 characters
 set lbr
-set tw=500
+set tw=80
 
 " Set Japanese-style hard-wrap
 " :set fp=fold\ -w80<CR>
@@ -242,3 +241,4 @@ if has("gui_running")
   set guifont=Source\ Code\ Pro\ for\ Powerline 11
 endif
 
+nnoremap <silent><leader>lcd :cd %:p:h<cr>
