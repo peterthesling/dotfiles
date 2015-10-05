@@ -16,16 +16,20 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-surround'
 Plugin 'kien/ctrlp.vim'
 Plugin 'bling/vim-airline'
-  if has("gui_running")
-    let g:airline_powerline_fonts = 1
-    let g:airline_theme = 'powerlineish'
-  endif
+let g:airline_symbols = {}
   let g:airline#extensions#tabline#enabled = 1
-  let g:airline_enable_branch     = 1
+  let g:airline#extensions#branch#enabled= 1
+  let g:airline_left_sep = '»'
+  let g:airline_right_sep = '«'
+  let g:airline_symbols.linenr = '␤'
+  let g:airline_symbols.branch = '⎇'
+  let g:airline_symbols.paste = 'ρ'
+  let g:airline_symbols.whitespace = 'Ξ'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
 " Bundle 'ervandew/supertab'
-" Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
+  let g:ycm_confirm_extra_conf = 0
 " Plugin 'SirVer/ultisnips'
 " Plugin 'honza/vim-snippets'
   " make YCM compatible with UltiSnips (using supertab)
@@ -39,22 +43,27 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'Raimondi/delimitMate'
   let delimitMate_expand_cr = 1
   let delimitMate_expand_space = 1
+Plugin 'tommcdo/vim-lion'
 
 Plugin 'vim-ruby/vim-ruby'
-  let g:syntastic_mode_map = { "mode": "active", "active_filetypes": [], "passive_filetypes": [] }
+  let g:syntastic_mode_map = { "mode": "active", "active_filetypes": [],  "passive_filetypes": ["tex"] }
   let g:syntastic_ruby_checkers = ['rubylint']
   let g:syntastic_ruby_rubocop_args = "-l --only"
   set shell=bash " fish uses non-standard redirection syntax, so we're fucked.
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-endwise'
 au FileType mail setlocal textwidth=80 formatoptions=twacq spell nolist bg=light
-au FileType mail colorscheme solarized
 Plugin 'jnwhiteh/vim-golang'
 " LaTeX
   let g:syntastic_latex_chktex_args = "-l ~/.chktexrc"
-  au FileType tex nnoremap <leader>ll :!xelatex %<cr>
-  au FileType tex nnoremap <leader>lb :!xelatex %:r; biber %:r; xelatex %:r;<cr>
+  au FileType tex nnoremap <leader>ll :!lualatex %<cr>
+  au FileType tex nnoremap <leader>lb :!lualatex %:r; biber %:r; lualatex %:r;<cr>
   au FileType tex nnoremap <leader>lv :!open %:r.pdf<cr>
+" C++
+  "let g:syntastic_cpp_checkers = ['gcc', 'cpplint']
+  "let g:syntastic_cpp_compiler_options = "-std=c++11 -pedantic -Wall -Werror -Wextra"
+  "let g:syntastic_cpp_cpplint_args = "--verbose=0"
 
 
 call vundle#end()
@@ -130,13 +139,12 @@ set list
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable
-colorscheme jellybeans
+set t_Co=256
+colo jellybeans
 if has("gui_running")
-  colorscheme tomorrow
-  let g:airline_theme = 'tomorrow'
+  set bg=light
+  colo solarized
 endif
-
-set encoding=utf8
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
@@ -238,7 +246,13 @@ if has("gui_running")
   set showtabline=0
   let g:solarized_menu=0
 
-  set guifont=Source\ Code\ Pro\ for\ Powerline 11
+  set guifont=Source\ Code\ Pro\ for\ Powerline
+endif
+
+set encoding=utf8
+if has("gui_running")
+  let g:airline_powerline_fonts = 1
+  let g:airline_theme = 'solarized'
 endif
 
 nnoremap <silent><leader>lcd :cd %:p:h<cr>
