@@ -1,9 +1,6 @@
 #
 # Executes commands at login post-zshrc.
 #
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
 
 # Execute code that does not affect the current session in the background.
 {
@@ -14,12 +11,5 @@
   fi
 } &!
 
-# Print a random, hopefully interesting, adage.
-echo WELCOME TO $( hostname | tr a-z A-Z ), $( whoami | tr a-z A-Z )
-echo DATE: $( date | tr a-z A-Z )
-echo 
-if (( $+commands[fortune] )); then
-  echo FORTUNE:
-  fortune
-  echo 
-fi
+echo Welcome to $( hostname ), $( whoami )
+echo Today’s date is $( date )

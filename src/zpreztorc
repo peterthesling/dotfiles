@@ -32,8 +32,11 @@ zstyle ':prezto:load' pmodule \
   'spectrum' \
   'utility' \
   'completion' \
+  'tmux' \
   'homebrew' \
+  'osx' \
   'ruby' \
+  'node' \
   'git' \
   'rails' \
   'syntax-highlighting' \

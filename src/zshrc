@@ -1,0 +1,39 @@
+#
+# Executes commands at the start of an interactive session.
+#
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+prompt sorin
+
+unsetopt correct
+
+# load dev, but only if present and the shell is interactive
+if [[ -f /opt/dev/dev.sh ]] && [[ $- == *i* ]]; then
+  source /opt/dev/dev.sh
+fi
+
+alias x='exit'
+alias c='clear'
+
+eval $(dircolors ~/.nix-profile/share/LS_COLORS)
+alias ls="ls --color=auto -F"
+
+alias be='bundle exec'
+alias cat='bat'
+alias git='hub'
+alias vim='nvim'
+
+alias pdf='pandoc --to=latex -o out.pdf --latex-engine=xelatex --variable documentclass=amsart --variable mainfont="FreightText Pro" --variable monofont="IBM Plex Mono" --variable fontsize=11'
+
+# Directory aliases are not common across machines, so source the local file
+if [[ -s "${ZDOTDIR:-$HOME}/.zshdirs" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zshdirs"
+fi
+
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
