@@ -1,5 +1,7 @@
 #! /bin/zsh
 
+cd "${0%/*}"
+
 # Link dotfiles
 #
 echo
@@ -58,3 +60,9 @@ echo --- nvim configured
 echo
 
 install bat
+
+# bat uses a different name on Ubuntu
+if [ -f /usr/bin/batcat ]; then
+  mkdir -p ~/.local/bin
+  ln -s /usr/bin/batcat ~/.local/bin/bat
+fi

@@ -26,6 +26,7 @@ alias be='bundle exec'
 alias cat='bat'
 alias git='hub'
 alias vim='nvim'
+alias vi='nvim'
 
 alias pdf='pandoc --to=latex -o out.pdf --latex-engine=xelatex --variable documentclass=amsart --variable mainfont="FreightText Pro" --variable monofont="IBM Plex Mono" --variable fontsize=11'
 
