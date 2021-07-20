@@ -19,7 +19,7 @@ fi
 alias x='exit'
 alias c='clear'
 
-eval $(dircolors ~/.nix-profile/share/LS_COLORS)
+eval $(dircolors ~/.LS_COLORS)
 alias ls="ls --color=auto -F"
 
 alias be='bundle exec'

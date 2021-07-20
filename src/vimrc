@@ -58,7 +58,9 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'ntpeters/vim-better-whitespace' " Highlight trailing whitespace
 Plug 'vim-scripts/Rename'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'Shopify/shadowenv.vim'
+if executable('shadowenv')
+  Plug 'Shopify/shadowenv.vim'
+endif
 Plug 'janko/vim-test'
 " }}}
 
