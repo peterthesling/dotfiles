@@ -66,3 +66,5 @@ if [ -f /usr/bin/batcat ]; then
   mkdir -p ~/.local/bin
   ln -s /usr/bin/batcat ~/.local/bin/bat
 fi
+
+install hub
