@@ -53,10 +53,16 @@ echo --- LS_COLORS definitions downloaded
 echo
 
 # Neovim
+if command -v apt-get &> /dev/null; then
+  sudo add-apt-repository ppa:neovim-ppa/unstable
+  sudo apt-get update
+fi
+install neovim
+
 curl -fLso ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 nvim --headless +PlugInstall +qall
-echo --- nvim configured
+echo --- neovim configured
 echo
 
 install bat
