@@ -23,12 +23,17 @@ eval $(dircolors ~/.LS_COLORS)
 alias ls="ls --color=auto -F"
 
 alias be='bundle exec'
-alias cat='bat'
 alias git='hub'
 alias vim='nvim'
 alias vi='nvim'
 
 alias pdf='pandoc --to=latex -o out.pdf --latex-engine=xelatex --variable documentclass=amsart --variable mainfont="FreightText Pro" --variable monofont="IBM Plex Mono" --variable fontsize=11'
+
+if command -v batcat; then
+  alias cat='batcat'
+elif command -v bat; then
+  alias cat='bat'
+end
 
 # Directory aliases are not common across machines, so source the local file
 if [[ -s "${ZDOTDIR:-$HOME}/.zshdirs" ]]; then
