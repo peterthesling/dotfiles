@@ -74,3 +74,10 @@ if [ -f /usr/bin/batcat ]; then
 fi
 
 install hub
+
+if [[ $SPIN ]]; then
+  git config --global user.email "cameron.bothner@shopify.com"
+  git config --global user.name "Cameron Bothner"
+  git config --global --unset-all credential.helper
+fi
+
