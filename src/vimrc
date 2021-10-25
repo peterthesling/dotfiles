@@ -315,9 +315,21 @@ local on_attach = function(client, bufnr)
 
 end
 
+-- Shopify's rubocop lsp
+local configs = require 'lspconfig/configs'
+local util = require 'lspconfig/util'
+configs.rubocop = {
+  name = "Rubocop",
+  default_config = {
+    root_dir = util.root_pattern('Gemfile', '.git'),
+    cmd = { "bundle", "exec", "rubocop-lsp" },
+    filetypes = { "ruby" },
+  },
+}
+
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "sorbet", "rust_analyzer", "tsserver" }
+local servers = { "sorbet", "rust_analyzer", "tsserver", "rubocop" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -326,7 +338,9 @@ for _, lsp in ipairs(servers) do
     }
   }
 end
+
 EOF
+
 
 " Compe
 set completeopt=menuone,noselect
