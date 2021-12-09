@@ -19,6 +19,9 @@ fi
 alias x='exit'
 alias c='clear'
 
+if command -v gdircolors &> /dev/null; then
+  alias dircolors='gdircolors'
+fi
 eval $(dircolors ~/.LS_COLORS)
 alias ls="ls --color=auto -F"
 

@@ -50,6 +50,10 @@ echo
 # LS_COLORS (https://github.com/trapd00r/LS_COLORS)
 curl -so ~/.LS_COLORS https://raw.githubusercontent.com/trapd00r/LS_COLORS/master/LS_COLORS
 echo --- LS_COLORS definitions downloaded
+if command -v brew &> /dev/null; then
+  brew install coreutils
+  echo --- coreutils installed
+fi
 echo
 
 # Neovim
