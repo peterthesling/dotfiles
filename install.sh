@@ -68,7 +68,7 @@ if command -v apt-get &> /dev/null; then
 
   # Add the unstable repository so we can get the newest version with that lsp
   # goodness
-  sudo add-apt-repository ppa:neovim-ppa/unstable
+  sudo add-apt-repository -y ppa:neovim-ppa/unstable
   sudo apt-get update
 fi
 install neovim
