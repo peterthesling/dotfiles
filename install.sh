@@ -2,6 +2,8 @@
 
 cd "${0%/*}"
 
+touch ~/setup-in-progress
+
 # Link dotfiles
 #
 echo
@@ -97,3 +99,4 @@ if [[ $SPIN ]]; then
   git config --global --unset-all credential.helper
 fi
 
+rm -f ~/setup-in-progress

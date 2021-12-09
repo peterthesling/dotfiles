@@ -13,3 +13,8 @@
 
 echo Welcome to $( hostname ), $( whoami )
 echo Today’s date is $( date )
+
+if [[ -f ~/setup-in-progress ]]; then
+  echo
+  echo "⚠️   Environment setup is ongoing. This shell does not have the full environment configured."
+fi
