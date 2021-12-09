@@ -31,6 +31,10 @@ echo Installing dependencies
 echo -----------------------
 echo
 
+if command -v apt-get &> /dev/null; then
+  sudo apt-get update
+fi
+
 function install {
   if ! command -v name &> /dev/null; then
     if command -v apt-get &> /dev/null; then
