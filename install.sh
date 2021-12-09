@@ -60,6 +60,14 @@ echo
 if command -v apt-get &> /dev/null; then
   sudo add-apt-repository ppa:neovim-ppa/unstable
   sudo apt-get update
+
+  # Uninstall any old version of neovim which was installed from the wrong
+  # repository
+  if command -v nvim &> /dev/null; then
+    if [[ $(nvim -v | grep -oP "(?<=NVIM v)\d+\.\d+") -lt 0.7 ]]; then
+      sudo apt-get remove neovim neovim-runtime
+    fi
+  fi
 fi
 install neovim
 
