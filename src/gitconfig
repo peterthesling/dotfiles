@@ -15,7 +15,7 @@
   lg = !"git lg-specific --all"
   lg-specific = log --graph --abbrev-commit --decorate --format=format:'%C(dim blue)%h%C(reset)%x09%C(dim green)%ad%C(reset)%x09%C(white)%s%C(reset)  %C(dim white)-- %an%C(reset)%C(yellow)%d%C(reset)' --date=short
   push-this = push -u origin HEAD
-  cleanup = !"git checkout master && git fetch --prune origin master && git reset --hard origin/master && git branch -d $(git branch --merged=master | grep -v master)"
+  cleanup = !"git checkout main && git fetch --prune origin main && git reset --hard origin/main && git branch -d $(git branch --merged=main | grep -v main)"
 [core]
 	commitGraph = true
 	attributesfile = /Users/cbothner/.gitattributes
