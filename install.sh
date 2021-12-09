@@ -56,6 +56,16 @@ if command -v brew &> /dev/null; then
 fi
 echo
 
+install bat
+
+# bat uses a different name on Ubuntu
+if [ -f /usr/bin/batcat ]; then
+  mkdir -p ~/.local/bin
+  ln -s /usr/bin/batcat ~/.local/bin/bat
+fi
+
+install hub
+
 # Neovim
 if command -v apt-get &> /dev/null; then
   # Uninstall any old version of neovim which was installed from the wrong
@@ -73,21 +83,13 @@ if command -v apt-get &> /dev/null; then
 fi
 install neovim
 
+# Configure nvim. Do this after all the other apt-get users because it holds the
+# dpkg lock beyond the lifespa of the command
 curl -fLso ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 nvim --headless +PlugInstall +qall
 echo --- neovim configured
 echo
-
-install bat
-
-# bat uses a different name on Ubuntu
-if [ -f /usr/bin/batcat ]; then
-  mkdir -p ~/.local/bin
-  ln -s /usr/bin/batcat ~/.local/bin/bat
-fi
-
-install hub
 
 if [[ $SPIN ]]; then
   git config --global user.email "cameron.bothner@shopify.com"
