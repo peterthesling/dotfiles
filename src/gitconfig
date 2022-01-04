@@ -4,8 +4,8 @@
 [protocol]
 	version = 2
 [user]
-	name = Cameron Bothner
-	email = cameron.bothner@shopify.com
+	name = Peter Thesling
+	email = peter.thesling@shopify.com
 [url "https://github.com/Shopify/"]
 	insteadOf = git@github.com:Shopify/
 	insteadOf = git@github.com:shopify/
@@ -13,13 +13,16 @@
 	insteadOf = ssh://git@github.com/shopify/
 [alias]
   lg = !"git lg-specific --all"
-  lg-specific = log --graph --abbrev-commit --decorate --format=format:'%C(dim blue)%h%C(reset)%x09%C(dim green)%ad%C(reset)%x09%C(white)%s%C(reset)  %C(dim white)-- %an%C(reset)%C(yellow)%d%C(reset)' --date=short
-  push-this = push -u origin HEAD
-  cleanup = !"git checkout main && git fetch --prune origin main && git reset --hard origin/main && git branch -d $(git branch --merged=main | grep -v main)"
+  st = status
+  ci = commit
+  br = branch
+  co = checkout
 [core]
 	commitGraph = true
-	attributesfile = /Users/cbothner/.gitattributes
+	attributesfile = /Users/peterthesling/.gitattributes
 [gc]
 	writeCommitGraph = true
 [help]
 	autoCorrect = -1
+[credential]
+	helper = store --file /opt/dev/var/private/git_credential_store
