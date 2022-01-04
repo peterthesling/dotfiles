@@ -98,8 +98,8 @@ echo --- neovim configured
 echo
 
 if [[ $SPIN ]]; then
-  git config --global user.email "cameron.bothner@shopify.com"
-  git config --global user.name "Cameron Bothner"
+  git config --global user.email "peter.thesling@shopify.com"
+  git config --global user.name "Peter Thesling"
   git config --global --unset-all credential.helper
 fi
 
