@@ -18,3 +18,5 @@ if [[ -f ~/setup-in-progress ]]; then
   echo
   echo "⚠️   Environment setup is ongoing. This shell does not have the full environment configured."
 fi
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*

@@ -1,7 +1,7 @@
 let mapleader = ","
 let g:mapleader = ","
 nmap <leader>v :split ~/.vimrc<CR>
-au BufRead $MYVIMRC set foldmethod=marker
+" au BufRead $MYVIMRC set foldmethod=marker
 
 " {{{ Plugins
 set nocompatible
@@ -502,7 +502,7 @@ au FileType tex nnoremap <leader>lv :!open %:r.pdf<cr>
 
 " Markdown {{{
 let g:vim_markdown_toc_autofit = 1
-let g:vim_markdown_folding_level = 6
+" let g:vim_markdown_folding_level = 6
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_fenced_languages = [
 \ 'js=typescript',
