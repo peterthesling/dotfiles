@@ -44,6 +44,7 @@ Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'airblade/vim-gitgutter'   " Diff markers in the gutter
 Plug 'bling/vim-airline'        " Status
 Plug 'vim-airline/vim-airline-themes'
+Plug 'gcmt/taboo.vim' " Make tabs prettier
 " }}}
 
 " {{{ IDE-Like Behavior
