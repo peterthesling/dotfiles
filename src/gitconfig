@@ -24,5 +24,3 @@
 	writeCommitGraph = true
 [help]
 	autoCorrect = -1
-[credential]
-	helper = store --file /opt/dev/var/private/git_credential_store

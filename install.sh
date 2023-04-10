@@ -103,4 +103,6 @@ if [[ $SPIN ]]; then
   git config --global --unset-all credential.helper
 fi
 
+sudo rm -rf /usr/local/bin/fzf
+sudo rm -rf /usr/bin/fzf
 rm -f ~/setup-in-progress

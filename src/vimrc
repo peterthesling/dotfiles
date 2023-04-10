@@ -133,6 +133,8 @@ Plug 'stephpy/vim-yaml'
 Plug 'pedrohdz/vim-yaml-folds'
 " }}}
 
+Plug 'github/copilot.vim'
+
 " }}}
 
 call plug#end()
