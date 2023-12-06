@@ -1,16 +1,8 @@
 [diff]
-	algorithm = patience
 	noprefix = true
-[protocol]
-	version = 2
 [user]
 	name = Peter Thesling
 	email = peter.thesling@shopify.com
-[url "https://github.com/Shopify/"]
-	insteadOf = git@github.com:Shopify/
-	insteadOf = git@github.com:shopify/
-	insteadOf = ssh://git@github.com/Shopify/
-	insteadOf = ssh://git@github.com/shopify/
 [alias]
   lg = !"git lg-specific --all"
   st = status
@@ -18,9 +10,13 @@
   br = branch
   co = checkout
 [core]
-	commitGraph = true
 	attributesfile = /Users/peterthesling/.gitattributes
-[gc]
-	writeCommitGraph = true
 [help]
 	autoCorrect = -1
+[include]
+	path = /Users/peterthesling/.config/dev/gitconfig
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
