@@ -20,4 +20,8 @@ then
 	sudo rm -rf /usr/local/bin/fzf
 	sudo rm -rf /usr/bin/fzf
 fi
+
+# Install plugins
+nvim -c 'PlugInstall | qa'
+
 export PS1="%d \$ "
