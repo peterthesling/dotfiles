@@ -22,6 +22,10 @@ for dotfile in src/**/*; do
 	fi
 done
 
+echo "Setting up vimrc for Neovim"
+mkdir -p ~/.config/nvim
+ln -s ~/.vimrc ~/.config/nvim/init.vim
+
 # Install dependencies
 #
 echo
