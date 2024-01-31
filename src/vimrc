@@ -9,6 +9,7 @@ call plug#begin('~/.config/vim/plugged')
 
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'vim-test/vim-test'
 
 call plug#end()
 
@@ -16,3 +17,11 @@ call plug#end()
 nnoremap <C-p> :GFiles<CR>
 nnoremap <C-t> :Buffers<CR>
 nnoremap <C-f> :Rg<CR>
+
+" Vim Test
+nmap <silent> <leader>tn :TestNearest<CR>
+nmap <silent> <leader>tf :TestFile<CR>
+nmap <silent> <leader>ts :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>tg :TestVisit<CR>
+let test#strategy = "dispatch"
