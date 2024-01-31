@@ -2,3 +2,8 @@
 inoremap jk <Esc>
 inoremap kj <Esc>
 
+call plug#begin('~/.vim/plugged')
+
+Plug 'junegunn/fzf'
+
+call plug#end()
