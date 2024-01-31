@@ -2,6 +2,9 @@
 inoremap jk <Esc>
 inoremap kj <Esc>
 
+" Setting line numbers
+set number
+
 call plug#begin('~/.config/vim/plugged')
 
 Plug 'junegunn/fzf'
