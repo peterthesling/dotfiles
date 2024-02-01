@@ -16,15 +16,14 @@ Plug 'vim-test/vim-test'
 Plug 'tpope/vim-dispatch'
 Plug 'morhetz/gruvbox'
 Plug 'github/copilot.vim'
+Plug 'tpope/vim-fugitive' " Git commands
+Plug 'tpope/vim-rhubarb' " Allows visiting Github URLs
 
 call plug#end()
 
 " Theme
 colorscheme gruvbox
 set background=dark  " For the dark theme
-
-" General settings
-set cc=121
 
 " Shortcuts for FZF commands
 nnoremap <C-p> :GFiles<CR>
@@ -39,3 +38,4 @@ nmap <silent> <leader>tl :TestLast<CR>
 nmap <silent> <leader>tg :TestVisit<CR>
 let test#strategy = "dispatch"
 let g:dispatch_tmux_pipe_pane = 1  " needed so $stdout.tty? is true and reline works when debugging
+set cc=121
