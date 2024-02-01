@@ -3,5 +3,5 @@
   email = peter.thesling@shopify.com
 [alias]
   st = status
-  ap = !git add . && git commit --amend --no-edit && git push origin +HEAD
-  rb = !git checkout main && git pull && git checkout - && git rebase main
+  amend-push-force = !git add . && git commit --amend --no-edit && git push origin +HEAD
+  rebase-on-new-main = !git checkout main && git pull && git checkout - && git rebase main
