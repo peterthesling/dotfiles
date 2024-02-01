@@ -1,2 +1,4 @@
-
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [ -z "$SPIN" ]
+then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
