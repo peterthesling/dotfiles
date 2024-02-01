@@ -15,12 +15,16 @@ Plug 'junegunn/fzf.vim'
 Plug 'vim-test/vim-test'
 Plug 'tpope/vim-dispatch'
 Plug 'morhetz/gruvbox'
+Plug 'github/copilot.vim'
 
 call plug#end()
 
 " Theme
 colorscheme gruvbox
 set background=dark  " For the dark theme
+
+" General settings
+set cc=121
 
 " Shortcuts for FZF commands
 nnoremap <C-p> :GFiles<CR>
