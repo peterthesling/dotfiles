@@ -3,6 +3,7 @@
 #
 
 alias vim='nvim'
+alias vi='nvim'
 
 # Command prompt customization
 autoload -Uz vcs_info
