@@ -15,7 +15,11 @@ Plug 'junegunn/fzf.vim'
 Plug 'vim-test/vim-test'
 Plug 'tpope/vim-dispatch'
 Plug 'morhetz/gruvbox'
-Plug 'github/copilot.vim'
+
+if !empty($SPIN) " Seems to throw errors locally
+	Plug 'github/copilot.vim'
+endif
+
 Plug 'tpope/vim-fugitive' " Git commands
 Plug 'tpope/vim-rhubarb' " Allows visiting Github URLs
 
