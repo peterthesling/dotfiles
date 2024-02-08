@@ -23,6 +23,7 @@ endif
 Plug 'tpope/vim-fugitive' " Git commands
 Plug 'tpope/vim-rhubarb' " Allows visiting Github URLs
 Plug 'neovim/nvim-lspconfig'
+Plug 'airblade/vim-gitgutter' " Shows git diff in the gutter
 
 call plug#end()
 
