@@ -24,6 +24,7 @@ Plug 'tpope/vim-fugitive' " Git commands
 Plug 'tpope/vim-rhubarb' " Allows visiting Github URLs
 Plug 'neovim/nvim-lspconfig'
 Plug 'airblade/vim-gitgutter' " Shows git diff in the gutter
+Plug 'ojroques/nvim-lspfuzzy'
 
 call plug#end()
 
@@ -46,39 +47,183 @@ let test#strategy = "dispatch"
 let g:dispatch_tmux_pipe_pane = 1  " needed so $stdout.tty? is true and reline works when debugging
 set cc=121
 
+"Remember info about open buffers on close
+set viminfo^=%
+
+" LSP
 lua << EOF
-local util = require 'lspconfig.util'
+local nvim_lsp = require('lspconfig')
 
-return {
-  default_config = {
-    cmd = { 'ruby-lsp' },
-    filetypes = { 'ruby' },
-    root_dir = util.root_pattern('Gemfile', '.git'),
-    init_options = {
-      formatter = 'auto',
-    },
-    single_file_support = true,
-  },
-  docs = {
-    description = [[
-https://shopify.github.io/ruby-lsp/
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-This gem is an implementation of the language server protocol specification for
-Ruby, used to improve editor features.
+  --Enable completion triggered by <c-x><c-o>
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-Install the gem. There's no need to require it, since the server is used as a
-standalone executable.
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
 
-```sh
-group :development do
-  gem "ruby-lsp", require: false
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', '<leader><leader>', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", opts)
+
 end
-```
-    ]],
+
+-- Shopify's ruby lsp
+local lspconfig = require 'lspconfig'
+local configs = require 'lspconfig.configs'
+local util = require 'lspconfig/util'
+
+if not configs.ruby_lsp then
+  local enabled_features = {
+    "documentHighlights",
+    "documentSymbols",
+    "foldingRanges",
+    "selectionRanges",
+    "formatting",
+    "codeActions",
+    }
+
+  configs.ruby_lsp = {
     default_config = {
-      root_dir = [[root_pattern("Gemfile", ".git")]],
+      cmd = { "bundle", "exec", "ruby-lsp" },
+      filetypes = { "ruby" },
+      root_dir = util.root_pattern("Gemfile", ".git"),
+      init_options = {
+        enabledFeatures = enabled_features,
+        },
+      settings = {},
+      },
+    commands = {
+      FormatRuby = {
+        function()
+        vim.lsp.buf.format({
+        name = "ruby_lsp",
+        async = true,
+        })
+      end,
+      description = "Format using ruby-lsp",
+      },
     },
+  }
+end
+
+lspconfig.ruby_lsp.setup({ on_attach = on_attach, capabilities = capabilities })
+
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
+local servers = { "sorbet", "rust_analyzer", "tsserver" }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 150,
+    }
+  }
+end
+
+require('lspfuzzy').setup {
+  methods = 'all',         -- either 'all' or a list of LSP methods (see below)
+  jump_one = true,         -- jump immediately if there is only one location
+  callback = nil,          -- callback called after jumping to a location
+  fzf_preview = {          -- arguments to the FZF '--preview-window' option
+    'right:+{2}-/2'          -- preview on the right and centered on entry
   },
+  fzf_action = {           -- FZF actions
+    ['ctrl-t'] = 'tabedit',  -- go to location in a new tab
+    ['ctrl-v'] = 'vsplit',   -- go to location in a vertical split
+    ['ctrl-x'] = 'split',    -- go to location in a horizontal split
+  },
+  fzf_modifier = ':~:.',   -- format FZF entries, see |filename-modifiers|
+  fzf_trim = true,         -- trim FZF entries
 }
+
 EOF
 
+
+" Compe
+set completeopt=menuone,noselect
+
+lua <<EOF
+require'compe'.setup {
+  source = {
+    path = true;
+    buffer = true;
+    calc = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+    vsnip = true;
+    ultisnips = true;
+    luasnip = true;
+  };
+}
+
+local t = function(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+local check_back_space = function()
+    local col = vim.fn.col('.') - 1
+    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
+end
+
+-- Use (s-)tab to:
+--- move to prev/next item in completion menuone
+--- jump to prev/next snippet's placeholder
+_G.tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-n>"
+  elseif vim.fn['vsnip#available'](1) == 1 then
+    return t "<Plug>(vsnip-expand-or-jump)"
+  elseif check_back_space() then
+    return t "<Tab>"
+  else
+    return vim.fn['compe#complete']()
+  end
+end
+_G.s_tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-p>"
+  elseif vim.fn['vsnip#jumpable'](-1) == 1 then
+    return t "<Plug>(vsnip-jump-prev)"
+  else
+    -- If <S-Tab> is not working in your terminal, change it to <C-h>
+    return t "<S-Tab>"
+  end
+end
+
+vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+EOF
+
+" Fzf
+    " Customize fzf colors to match your color scheme
+    " - fzf#wrap translates this to a set of `--color` options
+    let g:fzf_colors =
+    \ { 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Comment'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Statement'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'border':  ['fg', 'Ignore'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment'] }
