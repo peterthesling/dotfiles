@@ -7,3 +7,5 @@
   rebase-on-new-main = !git checkout main && git pull && git checkout - && git rebase main
 [include]
 	path = /Users/peterthesling/.config/dev/gitconfig
+[core]
+	editor = nvim
