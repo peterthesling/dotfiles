@@ -34,10 +34,21 @@ call plug#end()
 colorscheme gruvbox
 set background=dark  " For the dark theme
 
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number -- '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+
+command! -bang -nargs=* GGrepNoTests
+  \ call fzf#vim#grep(
+  \   'git grep --line-number '.shellescape(<q-args>), 0,
+  \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
+
 " Shortcuts for FZF commands
 nnoremap <C-p> :GFiles<CR>
 nnoremap <C-t> :Buffers<CR>
-nnoremap <C-f> :Rg<CR>
+nnoremap <C-f> :GGrep<CR>
+
 
 " Vim Test
 nmap <silent> <leader>tn :TestNearest<CR>
