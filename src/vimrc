@@ -4,6 +4,8 @@ inoremap kj <Esc>
 let mapleader = ","
 let g:mapleader = ","
 nmap <leader>v :split ~/.vimrc<CR>
+" Fast save
+nmap <leader>w :w!<cr>
 
 " Setting line numbers
 set number
@@ -59,6 +61,12 @@ nmap <silent> <leader>tg :TestVisit<CR>
 let test#strategy = "dispatch"
 let g:dispatch_tmux_pipe_pane = 1  " needed so $stdout.tty? is true and reline works when debugging
 set cc=121
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
 
 "Remember info about open buffers on close
 set viminfo^=%
