@@ -8,7 +8,8 @@ nmap <leader>v :split ~/.vimrc<CR>
 nmap <leader>w :w!<cr>
 
 " Setting line numbers
-set number
+set number                     " Show current line number
+set relativenumber             " Show relative line numbers
 
 call plug#begin('~/.config/vim/plugged')
 
@@ -18,9 +19,7 @@ Plug 'vim-test/vim-test'
 Plug 'tpope/vim-dispatch'
 Plug 'morhetz/gruvbox'
 
-if !empty($SPIN) " Seems to throw errors locally
-	Plug 'github/copilot.vim'
-endif
+Plug 'github/copilot.vim'
 
 Plug 'tpope/vim-fugitive' " Git commands
 Plug 'tpope/vim-rhubarb' " Allows visiting Github URLs
