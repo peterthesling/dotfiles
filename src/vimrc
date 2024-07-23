@@ -50,6 +50,7 @@ nnoremap <C-p> :GFiles<CR>
 nnoremap <C-t> :Buffers<CR>
 nnoremap <C-f> :GGrep<CR>
 
+nnoremap <C-c> :let @+=expand("%:p")<CR>
 
 " Vim Test
 nmap <silent> <leader>tn :TestNearest<CR>
@@ -144,7 +145,7 @@ lspconfig.ruby_lsp.setup({ on_attach = on_attach, capabilities = capabilities })
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "sorbet", "rust_analyzer", "tsserver" }
+local servers = { "sorbet", "rust_analyzer", "tsserver", "pyright" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
