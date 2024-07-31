@@ -172,6 +172,7 @@ require('lspfuzzy').setup {
 
 EOF
 
+let $FZF_DEFAULT_OPTS = '--preview "bat --style=numbers,changes --color=always --line-range :500 {}"'
 
 " Fzf
     " Customize fzf colors to match your color scheme
