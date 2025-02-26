@@ -1,3 +1,54 @@
+# clearly makes git better
+
+[column]
+        ui = auto
+[branch]
+        sort = -committerdate
+[tag]
+        sort = version:refname
+[init]
+        defaultBranch = main
+[diff]
+        algorithm = histogram
+        colorMoved = plain
+        mnemonicPrefix = true
+        renames = true
+[push]
+        default = simple
+        autoSetupRemote = true
+        followTags = true
+[fetch]
+        prune = true
+        pruneTags = true
+        all = true
+
+# why the hell not?
+
+[help]
+        autocorrect = prompt
+[commit]
+        verbose = true
+[rerere]
+        enabled = true
+        autoupdate = true
+[core]
+        excludesfile = ~/.gitignore
+[rebase]
+        autoSquash = true
+        autoStash = true
+        updateRefs = true
+
+# a matter of taste (uncomment if you dare)
+
+[core]
+        fsmonitor = true
+        untrackedCache = true
+[merge]
+        # (just 'diff3' if git version < 2.3)
+        conflictstyle = zdiff3 
+[pull]
+        rebase = true
+
 [user]
   name = Peter Thesling
   email = peter.thesling@shopify.com
@@ -5,7 +56,13 @@
   st = status
   amend-push-force = !git add . && git commit --amend --no-edit && git push origin +HEAD
   rebase-on-new-main = !git checkout main && git pull && git checkout - && git rebase main
+
 [include]
 	path = /Users/peterthesling/.config/dev/gitconfig
 [core]
 	editor = nvim
+[safe]
+	directory = /Users/peterthesling/src/peter-thesling-checkout-ext
+	directory = /Users/peterthesling/src/post-purchase-ext
+	directory = /Users/peterthesling/src/test
+	directory = /Users/peterthesling/src/checkout-extension-2

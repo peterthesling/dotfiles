@@ -27,3 +27,16 @@ gch() {
  git checkout "$(git branch | fzf --height 1% | tr -d '[:space:]')"
 }
 
+
+# cloudplatform: add Shopify clusters to your local kubernetes config
+export KUBECONFIG=${KUBECONFIG:+$KUBECONFIG:}/Users/peterthesling/.kube/config:/Users/peterthesling/.kube/config.shopify.cloudplatform
+for file in /Users/peterthesling/src/github.com/Shopify/cloudplatform/workflow-utils/*.bash; do source ${file}; done
+kubectl-short-aliases
+
+# pnpm
+export PNPM_HOME="/Users/peterthesling/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
