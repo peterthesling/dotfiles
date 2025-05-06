@@ -66,3 +66,5 @@
 	directory = /Users/peterthesling/src/post-purchase-ext
 	directory = /Users/peterthesling/src/test
 	directory = /Users/peterthesling/src/checkout-extension-2
+[maintenance]
+	repo = /Users/peterthesling/world/trees/root/src
