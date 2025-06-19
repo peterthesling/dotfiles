@@ -33,10 +33,11 @@ call plug#end()
 colorscheme gruvbox
 set background=dark  " For the dark theme
 
+" Updated GGrep command to take the current directory into account
 command! -bang -nargs=* GGrep
   \ call fzf#vim#grep(
   \   'git grep --line-number -- '.shellescape(<q-args>), 0,
-  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+  \   fzf#vim#with_preview({'dir': getcwd()}), <bang>0)
 
 command! -bang -nargs=* GGrepNoTests
   \ call fzf#vim#grep(
